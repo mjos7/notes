@@ -26,11 +26,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-  res.json(notes.slice(1));
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
+  res.json(notes);
 });
 
 app.post('/api/notes', (req, res) => {
