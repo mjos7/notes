@@ -1,43 +1,17 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
-const PORT = process.env.PORT || 3001;
+// Initialize the app and create a port
 const app = express();
-const notes = require('./db/db.json');
+const PORT = process.env.PORT || 3001;
 
-// Express middleware
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: false }));
+// Set up body parsing, static, and route middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
-// Default response for any other request (Not Found)
-app.use((req, res) => {
-  res.status(404).end();
-});
-
-// Routes
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/assets/index.html'));
-});
-
-app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/assets/notes.html'));
-});
-
-app.get('/api/notes', (req, res) => {
-  res.json(notes);
-});
-
-app.post('/api/notes', (req, res) => {
-  let newNote = req.body;
-  notes.push(newNotes);
-  fs.writeFileSync('/db/db.json', JSON.stringify(notes));
-  res.json(notes);
-});
-
-// Listening
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Start the server on the port
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
