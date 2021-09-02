@@ -5,6 +5,9 @@
 **Screenshot of Mockup**
 ![Screenshot](notes-app-mockup.png)
 
+Deployed application
+[Deployed Note Taker App](https://hidden-waters-86047.herokuapp.com/)
+
 ## Description
 
 Welcome to my Note Taker App
